@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Test3 {
     interface Callback {
         void onSuccess(final String result);
@@ -6,7 +10,25 @@ public class Test3 {
     }
 
     public static void readFile(final String fileName, final Callback callback) {
-        // TODO: Implement
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(fileName));
+            final StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+                stringBuilder.append(System.lineSeparator());
+            }
+            callback.onSuccess(stringBuilder.toString());
+        } catch (IOException e) {
+            callback.onError(new Throwable(e.getMessage()));
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                //nothing to do here
+            }
+        }
     }
 
     public static void main(final String[] args) {
