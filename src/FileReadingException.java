@@ -1,12 +1,5 @@
-public class FileReadingException extends Exception {
-    private String message;
-
+public class FileReadingException extends FileIOException {
     public FileReadingException(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
+        super(message);
     }
 }

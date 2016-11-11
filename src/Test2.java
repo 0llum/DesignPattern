@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Test2 {
-    public static void readFile (final String fileName, final StringBuilder contentBuilder, final StringBuilder errorBuilder) throws FileDoesNotExistException, FileReadingException {
+    public static void readFile (final String fileName, final StringBuilder contentBuilder) throws FileDoesNotExistException, FileReadingException {
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -27,7 +27,7 @@ public class Test2 {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-                    errorBuilder.append(e.getMessage());
+
                 }
             }
         }
@@ -35,25 +35,21 @@ public class Test2 {
 
     public static void main (final String[] args) {
         final StringBuilder contentBuilder = new StringBuilder();
-        final StringBuilder errorMessageBuilder = new StringBuilder();
 
         try {
-            readFile("./src/Test2.java", contentBuilder, errorMessageBuilder);
+            readFile("./src/Test2.java", contentBuilder);
             System.out.printf("Hat geklappt: %s\n", contentBuilder.toString());
-        } catch (FileDoesNotExistException | FileReadingException e) {
-            errorMessageBuilder.append(e.getMessage());
-            System.out.printf("Hat leider nicht geklappt: %s\n", errorMessageBuilder.toString());
+        } catch (FileIOException e) {
+            System.err.println(e.getMessage());
         }
 
         contentBuilder.setLength(0);
-        errorMessageBuilder.setLength(0);
 
         try {
-            readFile("./gibts-gar.nicht", contentBuilder, errorMessageBuilder);
+            readFile("./gibts-gar.nicht", contentBuilder);
             System.out.printf("Hat geklappt: %s\n", contentBuilder.toString());
-        } catch (FileDoesNotExistException | FileReadingException e) {
-            errorMessageBuilder.append(e.getMessage());
-            System.out.printf("Hat leider nicht geklappt: %s\n", errorMessageBuilder.toString());
+        } catch (FileIOException e) {
+            System.err.println(e.getMessage());
         }
     }
 }

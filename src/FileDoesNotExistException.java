@@ -1,12 +1,5 @@
-public class FileDoesNotExistException extends Exception {
-    private String message;
-
+public class FileDoesNotExistException extends FileIOException {
     public FileDoesNotExistException(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
+        super(message);
     }
 }
