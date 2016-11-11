@@ -1,5 +1,6 @@
 public class FileDoesNotExistException extends Exception {
-    String message;
+    private String message;
+
     public FileDoesNotExistException(String message) {
         this.message = message;
     }

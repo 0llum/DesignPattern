@@ -1,5 +1,6 @@
 public class FileReadingException extends Exception {
-    String message;
+    private String message;
+
     public FileReadingException(String message) {
         this.message = message;
     }
